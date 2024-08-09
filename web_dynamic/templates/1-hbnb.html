@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB - 1</title>
+    <!-- Import jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Import JavaScript file with cache_id as query string -->
+    <script src="{{ url_for('static', filename='scripts/1-hbnb.js') }}?cache_id={{ cache_id }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/1-hbnb.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Header content here -->
+    </header>
+    <main>
+        <div id="amenities">
+            <h4>Amenities:</h4>
+            <ul>
+                {% for amenity in amenities %}
+                <li>
+                    <!-- Checkbox for each amenity -->
+                    <input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right: 10px;" />
+                    {{ amenity.name }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- More content here -->
+    </main>
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+</body>
+</html>
+
