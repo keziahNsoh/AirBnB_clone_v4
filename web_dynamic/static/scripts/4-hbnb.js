@@ -78,4 +78,21 @@ $(document).ready(() => {
       });
     }
   });
+
+  $('section.filters button').click(function () {
+    const amenityIds = Object.keys(checkedAmenities);
+
+    $.ajax({
+      url: `${HOST}:5001/api/v1/places_search/`,
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ amenities: amenityIds }),
+      success: function (places) {
+        $('section.places').empty();
+        places.forEach(function (place) {
+          $('section.places').append(createPlaceArticle(place));
+        });
+      }
+    });
+  });
 });
