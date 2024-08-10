@@ -25,6 +25,7 @@ button:hover {
     display: inline-grid;
 }
 .filters h2 {
+    display: inline;
     margin-left: 15%;
     margin-top: 0;
     margin-bottom: 0;
