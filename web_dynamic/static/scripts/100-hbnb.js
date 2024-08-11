@@ -22,29 +22,38 @@ $(document).ready(() => {
 
   /* List checked amenitie */
   const checkedAmenities = {};
-  $('.amenities input[type="checkbox"]').change(function () {
-    const amenityId = $(this).data('id');
-    const amenityName = $(this).data('name');
-    if (this.checked) {
-      checkedAmenities[amenityId] = amenityName;
+  const checkedStates = {};
+  const checkedCities = {};
+
+  function updateCheckedItems ($checkbox, checkedItems, headerSelector) {
+    const itemId = $checkbox.data('id');
+    const itemName = $checkbox.data('name');
+
+    if ($checkbox.is(':checked')) {
+      checkedItems[itemId] = itemName;
     } else {
-      delete checkedAmenities[amenityId];
+      delete checkedItems[itemId];
     }
-    $('.amenities h4').text(Object.values(checkedAmenities).join(', '));
+
+    const itemList = Object.values(checkedItems).join(', ');
+    $(headerSelector).text(itemList);
+  }
+
+  $('.amenities input[type="checkbox"]').change(function () {
+    updateCheckedItems($(this), checkedAmenities, '.amenities h4');
+  });
+
+  $('.locations #state').change(function () {
+    updateCheckedItems($(this), checkedStates, '.locations h4');
+  });
+
+  $('.locations #city').change(function () {
+    updateCheckedItems($(this), checkedCities, '.locations h4');
   });
 
   // Function to create place articles
-  function createPlaceArticle (place) {
+  function createPlaceArticle (place, user) {
     // Get owner info
-    let user = {};
-    $.ajax({
-      type: 'GET',
-      url: `${HOST}:5001/api/v1/users/${place.user_id}`,
-      dataType: 'json',
-      success: function (data) {
-        user = data;
-      }
-    });
     return `
         <article>
             <div class="title_box">
@@ -74,23 +83,41 @@ $(document).ready(() => {
     success: function (places) {
       $('section.places').empty();
       places.forEach(function (place) {
-        $('section.places').append(createPlaceArticle(place));
+        $.ajax({
+          type: 'GET',
+          url: `${HOST}:5001/api/v1/users/${place.user_id}`,
+          dataType: 'json',
+          success: function (user) {
+            $('section.places').append(createPlaceArticle(place, user));
+          }
+        });
       });
     }
   });
 
   $('section.filters button').click(function () {
-    const amenityIds = Object.keys(checkedAmenities);
+    const filters = {
+      amenities: Object.keys(checkedAmenities),
+      states: Object.keys(checkedStates),
+      cities: Object.keys(checkedCities)
+    };
 
     $.ajax({
       url: `${HOST}:5001/api/v1/places_search/`,
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({ amenities: amenityIds }),
+      data: JSON.stringify(filters),
       success: function (places) {
         $('section.places').empty();
         places.forEach(function (place) {
-          $('section.places').append(createPlaceArticle(place));
+          $.ajax({
+            type: 'GET',
+            url: `${HOST}:5001/api/v1/users/${place.user_id}`,
+            dataType: 'json',
+            success: function (user) {
+              $('section.places').append(createPlaceArticle(place, user));
+            }
+          });
         });
       }
     });

@@ -34,17 +34,8 @@ $(document).ready(() => {
   });
 
   // Function to create place articles
-  function createPlaceArticle (place) {
+  function createPlaceArticle (place, user) {
     // Get owner info
-    let user = {};
-    $.ajax({
-      type: 'GET',
-      url: `${HOST}:5001/api/v1/users/${place.user_id}`,
-      dataType: 'json',
-      success: function (data) {
-        user = data;
-      }
-    });
     return `
         <article>
             <div class="title_box">
@@ -74,10 +65,18 @@ $(document).ready(() => {
     success: function (places) {
       $('section.places').empty();
       places.forEach(function (place) {
-        $('section.places').append(createPlaceArticle(place));
+        $.ajax({
+          type: 'GET',
+          url: `${HOST}:5001/api/v1/users/${place.user_id}`,
+          dataType: 'json',
+          success: function (user) {
+            $('section.places').append(createPlaceArticle(place, user));
+          }
+        });
       });
     }
   });
+
 
   $('section.filters button').click(function () {
     const amenityIds = Object.keys(checkedAmenities);
@@ -90,7 +89,14 @@ $(document).ready(() => {
       success: function (places) {
         $('section.places').empty();
         places.forEach(function (place) {
-          $('section.places').append(createPlaceArticle(place));
+          $.ajax({
+            type: 'GET',
+            url: `${HOST}:5001/api/v1/users/${place.user_id}`,
+            dataType: 'json',
+            success: function (user) {
+              $('section.places').append(createPlaceArticle(place, user));
+            }
+          });
         });
       }
     });
