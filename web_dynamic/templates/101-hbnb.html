@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101-HBNB</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts/101-hbnb.js') }}"></script>
+</head>
+<body>
+    <div id="locations">
+        <h4>Locations</h4>
+        <ul>
+            {% for state in states %}
+            <li>
+                <input type="checkbox" data-id="{{ state[0].id }}" data-name="{{ state[0].name }}" style="margin-left: 10px;">
+                {{ state[0].name }}
+                <ul>
+                    {% for city in state[1] %}
+                    <li>
+                        <input type="checkbox" data-id="{{ city.id }}" data-name="{{ city.name }}" style="margin-left: 10px;">
+                        {{ city.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="reviews">
+        <h2>Reviews <span id="toggle-reviews" data-status="show">show</span></h2>
+        <div id="review-list"></div>
+    </div>
+
+    <button id="search-btn">Search</button>
+</body>
+</html>
+
