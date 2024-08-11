@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  const HOST = 'http://172.30.79.218';
+  const HOST = 'http://0.0.0.0';
 
   // Function to update API status
   function checkApiStatus () {

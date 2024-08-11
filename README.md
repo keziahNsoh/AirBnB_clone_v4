@@ -150,6 +150,42 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
+# AirBnB Clone - Dynamic Web Application (Update by Normich and Keziah)
+
+## Key Features and Functionality
+
+1. **API Status Check**
+   - Periodically checks the API status
+   - Updates UI to reflect current API availability
+
+2. **Amenities and Locations Selection**
+   - Checkbox-based selection for amenities and locations (states/cities)
+   - Real-time UI updates to display selected items
+
+3. **Places Search**
+   - Fetches and displays places based on selected filters
+   - Triggered on page load and search button click
+
+4. **Dynamic Place Display**
+   - Creates and renders place articles with key details:
+     - Name
+     - Price
+     - Capacity
+     - Description
+
+5. **Review Toggle Functionality**
+   - Implements a show/hide toggle for reviews on each place
+   - Fetches reviews from API on demand
+   - Displays review details (user name, date, text)
+   - Allows for hiding and removing reviews from DOM
+
+6. **Event Listeners**
+   - Manages checkbox state changes for amenities and locations
+   - Handles search button clicks for updating place listings
+   - Responds to review toggle clicks for each individual place
+
+These changes provides a dynamic, interactive interface for searching and viewing places with customizable filters for amenities and locations, along with on-demand loading of user reviews.
+
 ## Bugs
 No known bugs at this time. 
 
@@ -158,6 +194,8 @@ Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twit
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)  
 Jhoan Zamora - [Github](https://github.com/jzamora5) / [Twitter](https://twitter.com/JhoanZamora10)  
 David Ovalle - [Github](https://github.com/Nukemenonai) / [Twitter](https://twitter.com/disartDave)
+Normich Itoua - [Github](https://github.com/nitoua-21) / [Twitter](https://x.com/ItouaNormich)
+Keziah Nsoh - [Github](https://github.com/keziahNsoh) / [Twitter](https://x.com)
 
 Second part of Airbnb: Joann Vuong
 ## License
